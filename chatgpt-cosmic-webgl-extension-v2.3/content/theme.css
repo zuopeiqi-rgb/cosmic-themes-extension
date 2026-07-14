@@ -1,0 +1,484 @@
+/* ChatGPT Sol · Terra · Luna — real-time WebGL celestial themes. */
+
+html[data-stl-enabled="true"] {
+  --stl-canvas-opacity: 0.86;
+  --stl-readability: 0.76;
+  --stl-scrim-center: 0.67;
+  --stl-scrim-side: 0.49;
+  --stl-scrim-mid: 0.53;
+  --stl-haze-opacity: 0.43;
+  --stl-scene-brightness: 1;
+  --stl-duration: 680ms;
+  --stl-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --stl-page-bg: #070809;
+  --stl-page-bg-rgb: 7, 8, 9;
+  --stl-sidebar: rgba(12, 13, 15, 0.94);
+  --stl-sidebar-strong: rgba(16, 17, 20, 0.98);
+  --stl-header: rgba(8, 9, 11, 0.64);
+  --stl-surface: rgba(32, 32, 34, 0.90);
+  --stl-surface-strong: rgba(38, 38, 40, 0.97);
+  --stl-surface-hover: rgba(255, 255, 255, 0.070);
+  --stl-input: rgba(33, 33, 35, 0.97);
+  --stl-user-message: rgba(47, 47, 49, 0.96);
+  --stl-code: rgba(13, 13, 15, 0.97);
+  --stl-border: rgba(255, 255, 255, 0.105);
+  --stl-border-strong: rgba(255, 255, 255, 0.185);
+  --stl-text-primary: #f6f7f8;
+  --stl-text-secondary: #c7cbd1;
+  --stl-text-muted: #949aa3;
+  --stl-accent: #d8dce6;
+  --stl-accent-hover: #eef1f7;
+  --stl-accent-soft: rgba(216, 220, 230, 0.14);
+  --stl-focus: rgba(210, 220, 255, 0.44);
+  --stl-shadow: rgba(0, 0, 0, 0.42);
+  color-scheme: dark;
+
+  /* ChatGPT's own design tokens are the most stable compatibility layer. */
+  --text-primary: var(--stl-text-primary) !important;
+  --text-secondary: var(--stl-text-secondary) !important;
+  --text-tertiary: var(--stl-text-muted) !important;
+  --main-surface-primary: transparent !important;
+  --main-surface-secondary: var(--stl-surface) !important;
+  --main-surface-tertiary: var(--stl-surface-strong) !important;
+  --sidebar-surface-primary: var(--stl-sidebar) !important;
+  --sidebar-surface-secondary: var(--stl-sidebar-strong) !important;
+  --sidebar-surface-tertiary: var(--stl-surface) !important;
+  --composer-surface: var(--stl-input) !important;
+  --message-surface: var(--stl-user-message) !important;
+  --border-light: var(--stl-border) !important;
+  --border-medium: var(--stl-border-strong) !important;
+}
+
+html[data-stl-theme="sol"] {
+  --stl-page-bg: #080503;
+  --stl-page-bg-rgb: 8, 5, 3;
+  --stl-sidebar: rgba(15, 11, 8, 0.95);
+  --stl-sidebar-strong: rgba(21, 15, 10, 0.98);
+  --stl-header: rgba(10, 7, 5, 0.67);
+  --stl-surface: rgba(32, 31, 30, 0.92);
+  --stl-surface-strong: rgba(38, 37, 35, 0.97);
+  --stl-surface-hover: rgba(238, 164, 72, 0.075);
+  --stl-input: rgba(33, 32, 31, 0.98);
+  --stl-user-message: rgba(47, 46, 44, 0.97);
+  --stl-code: rgba(13, 12, 11, 0.97);
+  --stl-border: rgba(255, 255, 255, 0.105);
+  --stl-border-strong: rgba(232, 184, 116, 0.20);
+  --stl-text-primary: #fffaf2;
+  --stl-text-secondary: #d8d1c7;
+  --stl-text-muted: #a29a8f;
+  --stl-accent: #e4a14f;
+  --stl-accent-hover: #f4c27e;
+  --stl-accent-soft: rgba(228, 161, 79, 0.15);
+  --stl-focus: rgba(245, 188, 105, 0.43);
+}
+
+html[data-stl-theme="terra"] {
+  --stl-page-bg: #020914;
+  --stl-page-bg-rgb: 2, 9, 20;
+  --stl-sidebar: rgba(5, 16, 27, 0.95);
+  --stl-sidebar-strong: rgba(7, 22, 36, 0.98);
+  --stl-header: rgba(3, 12, 23, 0.67);
+  --stl-surface: rgba(29, 33, 37, 0.92);
+  --stl-surface-strong: rgba(35, 40, 44, 0.97);
+  --stl-surface-hover: rgba(76, 181, 239, 0.075);
+  --stl-input: rgba(31, 35, 39, 0.98);
+  --stl-user-message: rgba(44, 49, 53, 0.97);
+  --stl-code: rgba(10, 13, 16, 0.97);
+  --stl-border: rgba(255, 255, 255, 0.105);
+  --stl-border-strong: rgba(111, 206, 250, 0.20);
+  --stl-text-primary: #f1f9ff;
+  --stl-text-secondary: #c4d7e2;
+  --stl-text-muted: #91a7b6;
+  --stl-accent: #4bb7f2;
+  --stl-accent-hover: #7dd2fa;
+  --stl-accent-soft: rgba(75, 183, 242, 0.15);
+  --stl-focus: rgba(83, 192, 248, 0.45);
+}
+
+html[data-stl-theme="luna"] {
+  --stl-page-bg: #06070a;
+  --stl-page-bg-rgb: 6, 7, 10;
+  --stl-sidebar: rgba(12, 13, 18, 0.95);
+  --stl-sidebar-strong: rgba(17, 18, 24, 0.98);
+  --stl-header: rgba(8, 9, 13, 0.67);
+  --stl-surface: rgba(31, 32, 36, 0.92);
+  --stl-surface-strong: rgba(38, 39, 43, 0.97);
+  --stl-surface-hover: rgba(190, 203, 238, 0.070);
+  --stl-input: rgba(33, 34, 38, 0.98);
+  --stl-user-message: rgba(47, 48, 53, 0.97);
+  --stl-code: rgba(12, 12, 15, 0.97);
+  --stl-border: rgba(255, 255, 255, 0.105);
+  --stl-border-strong: rgba(215, 224, 247, 0.19);
+  --stl-text-primary: #f5f7fb;
+  --stl-text-secondary: #c9ced8;
+  --stl-text-muted: #969da9;
+  --stl-accent: #b8c4e4;
+  --stl-accent-hover: #d9e1f5;
+  --stl-accent-soft: rgba(184, 196, 228, 0.14);
+  --stl-focus: rgba(184, 203, 249, 0.40);
+}
+
+html[data-stl-enabled="true"],
+html[data-stl-enabled="true"] body {
+  min-height: 100%;
+  background: var(--stl-page-bg) !important;
+  color: var(--stl-text-primary) !important;
+}
+
+html[data-stl-enabled="true"] body {
+  isolation: isolate;
+}
+
+html[data-stl-enabled="true"] body > *:not(#stl-cosmic-root) {
+  position: relative;
+  z-index: 1;
+}
+
+#stl-cosmic-root {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  contain: strict;
+  background: var(--stl-page-bg);
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+html[data-stl-enabled="true"] #stl-cosmic-root {
+  opacity: 1;
+}
+
+#stl-cosmic-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: var(--stl-canvas-opacity);
+  filter: brightness(var(--stl-scene-brightness)) saturate(calc(0.92 + var(--stl-scene-brightness) * 0.12));
+  transform: translateZ(0);
+}
+
+.stl-cosmic-haze,
+.stl-cosmic-scrim,
+.stl-cosmic-vignette,
+.stl-cosmic-grain {
+  position: absolute;
+  inset: 0;
+}
+
+.stl-cosmic-haze {
+  opacity: var(--stl-haze-opacity);
+  background:
+    radial-gradient(ellipse at 18% 42%, rgba(235, 126, 31, 0.08), transparent 42%),
+    radial-gradient(ellipse at 82% 20%, rgba(63, 139, 236, 0.055), transparent 38%),
+    radial-gradient(ellipse at 55% 90%, rgba(160, 174, 222, 0.035), transparent 44%);
+  filter: blur(30px);
+  transition: opacity var(--stl-duration) var(--stl-ease);
+}
+
+html[data-stl-theme="terra"] .stl-cosmic-haze {
+  background:
+    radial-gradient(ellipse at 76% 30%, rgba(25, 145, 239, 0.12), transparent 42%),
+    radial-gradient(ellipse at 18% 80%, rgba(23, 142, 117, 0.05), transparent 38%);
+}
+html[data-stl-theme="luna"] .stl-cosmic-haze {
+  background:
+    radial-gradient(ellipse at 78% 46%, rgba(162, 181, 233, 0.085), transparent 42%),
+    radial-gradient(ellipse at 20% 12%, rgba(108, 119, 157, 0.035), transparent 36%);
+}
+
+.stl-cosmic-scrim {
+  background:
+    radial-gradient(ellipse 62% 56% at 55% 50%, rgba(var(--stl-page-bg-rgb), var(--stl-scrim-center)) 0%, rgba(var(--stl-page-bg-rgb), var(--stl-scrim-mid)) 44%, transparent 82%),
+    linear-gradient(90deg, rgba(var(--stl-page-bg-rgb), var(--stl-scrim-side)) 0%, rgba(var(--stl-page-bg-rgb), .12) 35%, rgba(var(--stl-page-bg-rgb), .18) 72%, rgba(var(--stl-page-bg-rgb), .34) 100%);
+}
+
+.stl-cosmic-vignette {
+  background: radial-gradient(ellipse at center, transparent 42%, rgba(0, 0, 0, 0.19) 72%, rgba(0, 0, 0, 0.48) 100%);
+}
+
+.stl-cosmic-grain {
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+/* WebGL fallback remains dynamic-looking but intentionally lightweight. */
+.stl-webgl-fallback::before {
+  content: "";
+  position: absolute;
+  width: min(64vw, 880px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  left: -18vw;
+  top: 4vh;
+  background: radial-gradient(circle at 38% 38%, #fff0a0 0 2%, #ff9b00 22%, #6e1300 70%, transparent 71%);
+  box-shadow: 0 0 100px rgba(255, 116, 0, .28);
+}
+html[data-stl-theme="terra"] .stl-webgl-fallback::before {
+  left: auto; right: -10vw; top: 10vh;
+  background: radial-gradient(circle at 38% 33%, #c9f3ff 0 2%, #0b78cf 28%, #0b493f 54%, #02112c 72%, transparent 73%);
+  box-shadow: 0 0 90px rgba(46, 165, 255, .28);
+}
+html[data-stl-theme="luna"] .stl-webgl-fallback::before {
+  left: auto; right: -8vw; top: 14vh; width: min(52vw, 700px);
+  background: radial-gradient(circle at 35% 32%, #f2f4f8 0 3%, #979eaa 38%, #333944 70%, transparent 71%);
+  box-shadow: 0 0 70px rgba(177, 195, 238, .20);
+}
+
+/* Main app surfaces: retain ChatGPT layout, replace only material/color. */
+html[data-stl-enabled="true"] main,
+html[data-stl-enabled="true"] [role="main"],
+html[data-stl-enabled="true"] #__next,
+html[data-stl-enabled="true"] #root {
+  background-color: transparent !important;
+}
+
+html[data-stl-enabled="true"] nav,
+html[data-stl-enabled="true"] aside,
+html[data-stl-enabled="true"] [data-testid*="sidebar" i],
+html[data-stl-enabled="true"] #stage-slideover-sidebar {
+  color: var(--stl-text-primary) !important;
+  background: var(--stl-sidebar) !important;
+  border-color: var(--stl-border) !important;
+  box-shadow: inset -1px 0 0 var(--stl-border), 18px 0 40px rgba(0, 0, 0, 0.12) !important;
+  backdrop-filter: blur(14px) saturate(112%);
+}
+
+html[data-stl-enabled="true"] header {
+  border-color: var(--stl-border) !important;
+}
+
+html[data-stl-enabled="true"] header:has(button[aria-haspopup]),
+html[data-stl-enabled="true"] [data-testid*="header" i] {
+  background-color: var(--stl-header) !important;
+  backdrop-filter: blur(10px) saturate(108%);
+}
+
+html[data-stl-enabled="true"] :is(nav, aside, [data-testid*="sidebar" i]) a,
+html[data-stl-enabled="true"] :is(nav, aside, [data-testid*="sidebar" i]) button,
+html[data-stl-enabled="true"] :is(nav, aside, [data-testid*="sidebar" i]) span,
+html[data-stl-enabled="true"] :is(nav, aside, [data-testid*="sidebar" i]) div {
+  border-color: var(--stl-border) !important;
+}
+
+html[data-stl-enabled="true"] :is(nav, aside, [data-testid*="sidebar" i]) a,
+html[data-stl-enabled="true"] :is(nav, aside, [data-testid*="sidebar" i]) button {
+  color: var(--stl-text-secondary) !important;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease !important;
+}
+
+html[data-stl-enabled="true"] :is(nav, aside, [data-testid*="sidebar" i]) a:hover,
+html[data-stl-enabled="true"] :is(nav, aside, [data-testid*="sidebar" i]) button:hover,
+html[data-stl-enabled="true"] :is(nav, aside, [data-testid*="sidebar" i]) [aria-current="page"] {
+  color: var(--stl-text-primary) !important;
+  background-color: var(--stl-surface-hover) !important;
+}
+
+html[data-stl-enabled="true"] :is(nav, aside, [data-testid*="sidebar" i]) [aria-current="page"] {
+  box-shadow: inset 2px 0 0 var(--stl-accent), inset 0 0 0 1px var(--stl-border) !important;
+}
+
+/* Composer: remove the blinding white card and preserve every control. */
+html[data-stl-enabled="true"] form:has(#prompt-textarea),
+html[data-stl-enabled="true"] [data-type="unified-composer"],
+html[data-stl-enabled="true"] [data-testid*="composer" i],
+html[data-stl-enabled="true"] div:has(> #prompt-textarea) {
+  color: var(--stl-text-primary) !important;
+  background: var(--stl-input) !important;
+  border-color: var(--stl-border) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.040),
+    0 0 0 1px rgba(0, 0, 0, 0.16),
+    0 12px 30px rgba(0, 0, 0, 0.28) !important;
+  backdrop-filter: blur(12px) saturate(105%);
+  transition: background-color var(--stl-duration) var(--stl-ease), border-color 180ms ease, box-shadow 180ms ease !important;
+}
+
+html[data-stl-enabled="true"] form:has(#prompt-textarea):focus-within,
+html[data-stl-enabled="true"] [data-type="unified-composer"]:focus-within,
+html[data-stl-enabled="true"] div:has(> #prompt-textarea):focus-within {
+  border-color: var(--stl-border-strong) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 0 0 2px color-mix(in srgb, var(--stl-focus) 58%, transparent),
+    0 14px 34px rgba(0, 0, 0, 0.30) !important;
+}
+
+/* Keep the composer as one native-looking surface instead of stacked theme-colored blocks. */
+html[data-stl-enabled="true"] :is(
+  form:has(#prompt-textarea),
+  [data-type="unified-composer"],
+  [data-testid*="composer" i]
+) :is(
+  div:has(#prompt-textarea),
+  section:has(#prompt-textarea)
+) {
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+html[data-stl-enabled="true"] :is(
+  form:has(#prompt-textarea),
+  [data-type="unified-composer"],
+  [data-testid*="composer" i]
+) > :is(div, section) {
+  background-color: transparent !important;
+}
+
+/* Preserve ChatGPT's button hierarchy; theme color is used only for active/focus states. */
+html[data-stl-enabled="true"] :is(
+  form:has(#prompt-textarea),
+  [data-type="unified-composer"],
+  [data-testid*="composer" i]
+) button:not([data-testid*="send" i]):not([aria-label*="send" i]):not([aria-label*="发送"]) {
+  color: var(--stl-text-secondary) !important;
+  background-color: transparent !important;
+}
+
+html[data-stl-enabled="true"] #prompt-textarea,
+html[data-stl-enabled="true"] [contenteditable="true"] {
+  color: var(--stl-text-primary) !important;
+  caret-color: var(--stl-accent) !important;
+  background: transparent !important;
+}
+
+html[data-stl-enabled="true"] #prompt-textarea::placeholder,
+html[data-stl-enabled="true"] textarea::placeholder,
+html[data-stl-enabled="true"] input::placeholder {
+  color: var(--stl-text-muted) !important;
+  opacity: 1 !important;
+}
+
+/* Menus, dialogs, model selector, popovers. */
+html[data-stl-enabled="true"] [role="menu"],
+html[data-stl-enabled="true"] [role="listbox"],
+html[data-stl-enabled="true"] [role="dialog"],
+html[data-stl-enabled="true"] [data-radix-popper-content-wrapper] > div,
+html[data-stl-enabled="true"] [data-headlessui-state*="open"] {
+  color: var(--stl-text-primary) !important;
+  background-color: var(--stl-surface-strong) !important;
+  border-color: var(--stl-border) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(18px) saturate(112%);
+}
+
+html[data-stl-enabled="true"] [role="menuitem"],
+html[data-stl-enabled="true"] [role="menuitemradio"],
+html[data-stl-enabled="true"] [role="option"] {
+  color: var(--stl-text-secondary) !important;
+}
+html[data-stl-enabled="true"] [role="menuitem"]:hover,
+html[data-stl-enabled="true"] [role="menuitemradio"]:hover,
+html[data-stl-enabled="true"] [role="option"]:hover,
+html[data-stl-enabled="true"] [aria-selected="true"],
+html[data-stl-enabled="true"] [aria-checked="true"] {
+  color: var(--stl-text-primary) !important;
+  background-color: var(--stl-accent-soft) !important;
+}
+
+/* Keep all important text readable; accent is reserved for interaction states. */
+html[data-stl-enabled="true"] :is(p, li, td, th, label) {
+  color: inherit;
+}
+html[data-stl-enabled="true"] [data-message-author-role="assistant"] {
+  color: var(--stl-text-primary) !important;
+}
+html[data-stl-enabled="true"] [data-message-author-role="user"] {
+  color: var(--stl-text-primary) !important;
+}
+/* Let ChatGPT keep its native message geometry. Only normalize the material token. */
+html[data-stl-enabled="true"] [data-message-author-role="user"] {
+  --message-surface: var(--stl-user-message) !important;
+}
+html[data-stl-enabled="true"] [data-message-author-role="user"] :is(img, video, canvas) {
+  background-color: transparent !important;
+}
+
+html[data-stl-enabled="true"] button {
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+html[data-stl-enabled="true"] button:focus-visible,
+html[data-stl-enabled="true"] a:focus-visible,
+html[data-stl-enabled="true"] input:focus-visible,
+html[data-stl-enabled="true"] textarea:focus-visible,
+html[data-stl-enabled="true"] [tabindex]:focus-visible {
+  outline: 2px solid var(--stl-focus) !important;
+  outline-offset: 2px !important;
+}
+
+html[data-stl-enabled="true"] pre,
+html[data-stl-enabled="true"] code,
+html[data-stl-enabled="true"] .markdown pre {
+  color: #e7ebf0 !important;
+  background-color: var(--stl-code) !important;
+  border-color: var(--stl-border) !important;
+}
+html[data-stl-enabled="true"] blockquote {
+  color: var(--stl-text-secondary) !important;
+  border-color: var(--stl-accent) !important;
+  background-color: rgba(var(--stl-page-bg-rgb), 0.48) !important;
+}
+html[data-stl-enabled="true"] table,
+html[data-stl-enabled="true"] th,
+html[data-stl-enabled="true"] td {
+  color: var(--stl-text-primary) !important;
+  border-color: var(--stl-border) !important;
+}
+html[data-stl-enabled="true"] th {
+  background-color: var(--stl-surface-strong) !important;
+}
+
+html[data-stl-enabled="true"] ::selection {
+  color: var(--stl-text-primary);
+  background: var(--stl-accent-soft);
+}
+html[data-stl-enabled="true"] * {
+  scrollbar-color: color-mix(in srgb, var(--stl-accent) 38%, transparent) transparent;
+}
+html[data-stl-enabled="true"] ::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-stl-enabled="true"] ::-webkit-scrollbar-track { background: transparent; }
+html[data-stl-enabled="true"] ::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--stl-accent) 38%, transparent);
+  background-clip: padding-box;
+}
+html[data-stl-enabled="true"] ::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--stl-accent) 56%, transparent);
+  background-clip: padding-box;
+}
+
+/* Smooth theme changes without moving layout. */
+html[data-stl-enabled="true"] :is(nav, aside, header, main, form, button, input, textarea, [role="menu"], [role="dialog"], pre, blockquote, table) {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: var(--stl-duration);
+  transition-timing-function: var(--stl-ease);
+}
+
+@media (max-width: 767px) {
+  #stl-cosmic-canvas { opacity: var(--stl-canvas-opacity); filter: brightness(.84) saturate(.94); }
+  .stl-cosmic-haze { filter: blur(18px); }
+  .stl-cosmic-scrim {
+    background:
+      radial-gradient(ellipse 88% 58% at 52% 54%, rgba(var(--stl-page-bg-rgb), var(--stl-scrim-center)) 0%, rgba(var(--stl-page-bg-rgb), .38) 62%, transparent 100%),
+      linear-gradient(rgba(var(--stl-page-bg-rgb), .20), rgba(var(--stl-page-bg-rgb), .34));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-stl-enabled="true"] *,
+  html[data-stl-enabled="true"] *::before,
+  html[data-stl-enabled="true"] *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 140ms !important;
+  }
+}

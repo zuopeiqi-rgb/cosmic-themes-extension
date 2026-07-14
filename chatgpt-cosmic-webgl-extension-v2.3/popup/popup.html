@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sol · Terra · Luna</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="panel">
+    <header class="brand">
+      <div class="orbital-mark" aria-hidden="true"><span></span><i></i><b></b></div>
+      <div><h1>Sol · Terra · Luna</h1><p>实时 WebGL 宇宙主题 · v2.3</p></div>
+    </header>
+
+    <section class="card" aria-label="基本设置">
+      <label class="switch-row">
+        <span><strong>启用扩展</strong><small>关闭后恢复 ChatGPT 原始外观</small></span>
+        <input id="enabled" type="checkbox"><i class="switch" aria-hidden="true"></i>
+      </label>
+      <label class="switch-row">
+        <span><strong>跟随模型</strong><small>Sol、Terra、Luna 自动切换</small></span>
+        <input id="followModel" type="checkbox"><i class="switch" aria-hidden="true"></i>
+      </label>
+      <label class="switch-row">
+        <span><strong>连续动效</strong><small>星球旋转、粒子环与自然镜头转场</small></span>
+        <input id="motion" type="checkbox"><i class="switch" aria-hidden="true"></i>
+      </label>
+    </section>
+
+    <section class="card">
+      <div class="section-title"><strong>备用 / 手动主题</strong><small>未识别模型时使用</small></div>
+      <div class="theme-grid" role="radiogroup" aria-label="主题">
+        <label class="theme sol"><input type="radio" name="theme" value="sol"><span class="planet"></span><b>Sol</b><small>太阳</small></label>
+        <label class="theme terra"><input type="radio" name="theme" value="terra"><span class="planet"></span><b>Terra</b><small>地球</small></label>
+        <label class="theme luna"><input type="radio" name="theme" value="luna"><span class="planet"></span><b>Luna</b><small>月球</small></label>
+      </div>
+    </section>
+
+    <section class="card controls">
+      <div class="section-title compact"><strong>光效与粒子</strong><small>实时调整，不需要刷新页面</small></div>
+      <label><span><strong>场景亮度</strong><output id="brightnessValue">98%</output></span><input id="brightness" type="range" min="40" max="150" step="1"></label>
+      <label><span><strong>星球大小</strong><output id="planetSizeValue">108%</output></span><input id="planetSize" type="range" min="60" max="160" step="1"></label>
+      <label><span><strong>粒子强度</strong><output id="particleStrengthValue">96%</output></span><input id="particleStrength" type="range" min="20" max="190" step="1"></label>
+      <label><span><strong>发光强度</strong><output id="glowStrengthValue">108%</output></span><input id="glowStrength" type="range" min="40" max="220" step="1"></label>
+      <label><span><strong>环绕密度</strong><output id="orbitDensityValue">86%</output></span><input id="orbitDensity" type="range" min="35" max="180" step="1"></label>
+      <label><span><strong>粒子速度</strong><output id="particleSpeedValue">100%</output></span><input id="particleSpeed" type="range" min="40" max="180" step="1"></label>
+    </section>
+
+    <section class="card controls">
+      <div class="section-title compact"><strong>位置与过渡</strong><small>控制星球构图和切换节奏</small></div>
+      <label><span><strong>水平位置</strong><output id="planetXValue">居中</output></span><input id="planetX" type="range" min="-100" max="100" step="1"></label>
+      <label><span><strong>垂直位置</strong><output id="planetYValue">居中</output></span><input id="planetY" type="range" min="-100" max="100" step="1"></label>
+      <label><span><strong>转场时长</strong><output id="transitionDurationValue">3.4s</output></span><input id="transitionDuration" type="range" min="1800" max="5200" step="100"></label>
+      <label><span><strong>文字保护</strong><output id="readabilityValue">76%</output></span><input id="readability" type="range" min="45" max="95" step="1"></label>
+      <label><span><strong>整体视觉</strong><output id="intensityValue">74%</output></span><input id="intensity" type="range" min="25" max="100" step="1"></label>
+      <label class="select-row"><span><strong>渲染质量</strong><small>自动模式会在掉帧时降档</small></span>
+        <select id="quality" aria-label="渲染质量">
+          <option value="auto">自动</option>
+          <option value="high">高</option>
+          <option value="medium">平衡</option>
+          <option value="low">省电</option>
+        </select>
+      </label>
+    </section>
+
+    <button id="reset" class="reset" type="button">恢复推荐设置</button>
+    <p class="note">只检测模型选择控件，不读取聊天正文、输入内容或网络请求。所有天体、粒子环与转场均由本地 WebGL 实时生成。</p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
