@@ -289,7 +289,7 @@ Command + Shift + R
 | Terra | 地球主题 |
 | Luna | 月球主题 |
 
-扩展可以识别类似名称：
+扩展可以识别类似名称（仅限Chatgpt work模式）：
 
 ```text
 Sol
